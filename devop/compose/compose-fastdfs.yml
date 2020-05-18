@@ -1,0 +1,59 @@
+version: '3.1'
+networks:
+  default:
+    external:
+      name: compose_infura
+services:
+  fastdfs-tracker:
+    image: morunchang/fastdfs
+    restart: always
+    command:
+      --net=host
+    command:
+      /bin/sh "tracker.sh"
+    ports:
+      - 22122:22122
+
+  fastdfs-storage1:
+    image: morunchang/fastdfs
+    depends_on:
+      - fastdfs-tracker
+    restart: always
+    #volumes: # 在這指定 nginx.conf 無效，容器啟動會根據組名自動生成
+    #  - ../fastdfs/group1/nginx.conf:/data/nginx/conf/nginx.conf
+    ports:
+      - 23000:23000
+    command:
+      ‐‐name=storage
+      ‐‐net=host
+    environment:
+      - TRACKER_IP=fastdfs-tracker:22122
+      - GROUP_NAME=group1 # storage 組
+    command:
+      /bin/sh "storage.sh"
+
+  fastdfs-storage2:
+    image: morunchang/fastdfs
+    depends_on:
+      - fastdfs-tracker
+    restart: always
+    #volumes:
+    #  - ../fastdfs/group2/nginx.conf:/data/nginx/conf/nginx.conf
+    command:
+      ‐‐name=storage
+      ‐‐net=host
+    environment:
+      - TRACKER_IP=fastdfs-tracker:22122
+      - GROUP_NAME=group2
+    command:
+      /bin/sh "storage.sh"
+
+  it-service-file1:
+    image: it_service_file:1.0-SNAPSHOT
+    restart: always
+    ports:
+      - "10089:10089"
+
+
+volumes:
+  fastdfs-data:
