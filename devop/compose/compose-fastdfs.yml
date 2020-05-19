@@ -48,12 +48,6 @@ services:
     command:
       /bin/sh "storage.sh"
 
-  it-service-file1:
-    image: it_service_file:1.0-SNAPSHOT
-    restart: always
-    ports:
-      - "10089:10089"
-
 
 volumes:
   fastdfs-data:

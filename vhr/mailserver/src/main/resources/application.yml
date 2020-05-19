@@ -1,0 +1,38 @@
+spring:
+  mail:
+    host: smtp.qq.com
+    protocol: smtp
+    default-encoding: UTF-8
+    password: fzvarxpndockbaeg
+    username: 1510161612@qq.com
+    port: 587
+    properties:
+      mail:
+        debug: true
+        stmp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: 123
+    url: jdbc:mysql://mysql-vhr:3306/vhr?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Taipei
+  rabbitmq:
+    username: root
+    password: 123
+    host:  rabbitmq-vhr
+    port: 5672
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 100
+  redis:
+    host: redis-vhr
+    database: 0
+    port: 6379
+    password: 123
+
+server:
+  port: 8082
+  compression:
+    enabled: true

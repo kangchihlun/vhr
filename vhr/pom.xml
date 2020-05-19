@@ -9,6 +9,11 @@
         <version>2.1.8.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <properties>
+        <dockerhost>192.168.152.128</dockerhost>
+        <dockerport>2375</dockerport>
+    </properties>
+
     <groupId>org.javaboy</groupId>
     <artifactId>vhr</artifactId>
     <packaging>pom</packaging>
